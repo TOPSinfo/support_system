@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('main');
 
 Auth::routes();
 
@@ -33,3 +33,8 @@ Route::prefix('ticket')->group(function () {
     Route::post('/update', [App\Http\Controllers\TicketController::class, 'updateTicket'])->name('ticket.update');
 });
 
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [App\Http\Controllers\adminLoginController::class, 'showLoginForm'])->name('admin.loginform');
+    Route::post('/login', [App\Http\Controllers\adminLoginController::class, 'login'])->name('admin.login');
+    Route::get('/logout', [App\Http\Controllers\adminLoginController::class, 'logout'])->name('admin.logout');
+});

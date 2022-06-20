@@ -2,38 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class adminLoginController extends Controller
+class AdminLoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
     public function showLoginForm(Request $request)
     {
-        return view("admin.login");
+        return view('admin.login');
     }
 
     public function login(Request $request)
-    {
-        $validated = $request->validate([
-            'email' => 'required',
+    {   
+        $input = $request->all();
+   
+        $this->validate($request, [
+            'email' => 'required|email',
             'password' => 'required',
         ]);
-
-        $credentials = array(
-            'email' => $request->email,
-            'password' => $request->password
-        );
-
-        if (Auth::guard('support')->attempt($credentials)) {
-            $request->session()->regenerate();
- 
-            return redirect()->intended('dashboard');
+   
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        {
+            if (auth()->user()->is_admin == 1) {
+                return redirect()->route('admin.dashboard');
+            }else{
+                return redirect()->route('admin.login')->with('error','Email-Address And Password Are Wrong.');
+            }
+        }else{
+            return redirect()->route('admin.login')
+                ->with('error','Email-Address And Password Are Wrong.');
         }
     }
 
     public function logout(Request $request)
     {
-        Auth::guard('support')->logout();
+        auth()->logout();
 
         $request->session()->invalidate();
 

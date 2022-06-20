@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
         $data[] = array(
             'name' => 'Vijahat',
             'email' => 'vijahat@topsinfosolutions.com',
+            'is_admin' => '1',
             'password' => Hash::make('password'),
         );
         $data[] = array(

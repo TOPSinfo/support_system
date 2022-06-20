@@ -47,7 +47,7 @@ class TicketController extends Controller
                 'lastmodified_by' => Auth::guard('web')->user()->id,
         );
         Activity::create($activity);
-        return redirect()->back()->with('success', 'Ticket added successfully.'); 
+        return redirect()->route('ticket.list')->with('success', 'Ticket added successfully.');
     }
 
     public function editTicket($id)
@@ -66,6 +66,7 @@ class TicketController extends Controller
         );
 
         Ticket::where('salted_hash_id',$request->id)->update($data);
+        return redirect()->route('ticket.list')->with('success', 'Ticket updated successfully.');
     }
 
     public function viewTicket(SaveTicketRequest $request)
@@ -77,7 +78,7 @@ class TicketController extends Controller
     public function listTicket(Request $request)
     {
         $sn = 1;
-        $tickets = Ticket::get();
+        $tickets = Ticket::orderBy('created_at','desc')->get();
         return view("ticket.list", compact('tickets','sn'));
     }
 }

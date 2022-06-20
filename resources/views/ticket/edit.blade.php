@@ -8,14 +8,9 @@
                 <div class="card-header">Edit Ticket</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
                     <form method="post" action="{{ route('ticket.update') }}">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $tickets->salted_hash_id }}">
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" value="{{$tickets->title}}" required>

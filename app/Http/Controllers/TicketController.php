@@ -23,11 +23,13 @@ class TicketController extends Controller
         $this->middleware('auth');
     }
 
+    // Front ticket add form.
     public function createTicket(Request $request)
     {
         return view("ticket.add");
     }
 
+    // Front ticket add form submit.
     public function saveTicket(SaveTicketRequest $request)
     {
         $data = array(
@@ -63,12 +65,14 @@ class TicketController extends Controller
         return redirect()->route('ticket.list')->with('success', 'Ticket added successfully.');
     }
 
+    // Front ticket edit form.
     public function editTicket($id)
     {
         $tickets = Ticket::where('salted_hash_id',$id)->first();
         return view("ticket.edit", compact('tickets'));
     }
 
+    // Front ticket edit form submit.
     public function updateTicket(SaveTicketRequest $request)
     {
         $data = array(
@@ -83,12 +87,14 @@ class TicketController extends Controller
         return redirect()->route('ticket.list')->with('success', 'Ticket updated successfully.');
     }
 
+    // Front ticket view page.
     public function viewTicket(Request $request, $id)
     {
         $ticket = Ticket::where('salted_hash_id',$id)->first();
         return view("ticket.detail", compact('ticket'));
     }
 
+    // Front ticket comment create.
     public function ticketComment(Request $request)
     {
         if($request->file('attachment')) {
@@ -143,6 +149,7 @@ class TicketController extends Controller
         return response()->json($data);
     }
 
+    // Front ticket List.
     public function listTicket(Request $request)
     {
         $sn = 1;

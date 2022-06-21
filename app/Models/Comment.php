@@ -30,11 +30,13 @@ class Comment extends Model
         'created_by'
     ];
 
+    // Get created by user.
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    // Get ticket info for comment.
     public function ticket()
     {
         return $this->belongsTo(Ticket::class, 'ticket_id');

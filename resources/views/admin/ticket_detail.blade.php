@@ -63,7 +63,7 @@
                                 <div class="col-md-6">
                                     <div class="btn btn-default btn-file">
                                         <i class="fas fa-paperclip"></i> Attachment
-                                        <input type="file" id="attachment" name="attachment">
+                                        <input type="file" id="attachment" name="attachment" accept="image/png, image/gif, image/jpeg">
                                     </div>
                                     <p class="help-block">Max. 32MB</p>
                                 </div>

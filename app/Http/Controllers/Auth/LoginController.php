@@ -39,6 +39,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    // Front login form.
     public function login(Request $request)
     {   
         $input = $request->all();

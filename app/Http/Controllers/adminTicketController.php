@@ -19,6 +19,7 @@ class AdminTicketController extends Controller
         $this->middleware('is_admin');
     }
 
+    // Admin ticket list.
     public function ticketList(Request $request)
     {
         $sn = 1;
@@ -26,12 +27,14 @@ class AdminTicketController extends Controller
         return view('admin.ticket_list',compact('tickets','sn'));
     }
 
+    // Admin ticket detail.
     public function ticketDetail(Request $request)
     {
         $ticket = Ticket::where('salted_hash_id',$request->id)->first();
         return view('admin.ticket_detail',compact('ticket'));
     }
 
+    // Admin ticket comment create.
     public function ticketComment(Request $request)
     {
         if($request->file('attachment')) {
@@ -75,6 +78,7 @@ class AdminTicketController extends Controller
         return response()->json($data);
     }
 
+    // Admin ticket status update.
     public function ticketStatusUpdate(Request $request)
     {
         $tickets = Ticket::where('salted_hash_id',$request->ticket)->update(['status' => $request->status]);

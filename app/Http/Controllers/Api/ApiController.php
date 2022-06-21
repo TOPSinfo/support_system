@@ -23,6 +23,8 @@ class ApiController extends Controller
         $this->msg = 'Error in request.';
         $this->bdata = new \stdClass();
     }
+    
+    // for checking api key
     public function checkApiKey($api_key)
     {
         if ($api_key != $this->apiKey) {
@@ -32,7 +34,7 @@ class ApiController extends Controller
         }
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the tickets.
      *
      * @return json
      */

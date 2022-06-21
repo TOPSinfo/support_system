@@ -39,11 +39,13 @@ class AdminLoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    // Show login form for admin.
     public function showLoginForm(Request $request)
     {
         return view('admin.login');
     }
 
+    // Check login creadential for admin.
     public function login(Request $request)
     {   
         $input = $request->all();
@@ -69,6 +71,7 @@ class AdminLoginController extends Controller
         }
     }
 
+    // Logout form admin.
     public function logout(Request $request)
     {
         auth()->logout();

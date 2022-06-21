@@ -31,11 +31,13 @@ class Activity extends Model
         'lastmodified_by',
     ];
 
+    // Get created by user.
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    // Get ticket info for activity.
     public function ticket()
     {
         return $this->belongsTo(Ticket::class, 'ticket_id');

@@ -31,6 +31,7 @@ class Ticket extends Model
         'lastmodified_by',
     ];
 
+    // Get created by user.
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');

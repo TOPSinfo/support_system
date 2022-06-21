@@ -12,6 +12,7 @@ class AdminDashboardController extends Controller
         $this->middleware('is_admin');
     }
 
+    // Get dashboard of the admin.
     public function dashboard(Request $request)
     {
         $completed = Ticket::where('status','3')->count();

@@ -7,7 +7,7 @@ use App\Models\Ticket;
 use App\Models\Comment;
 use Auth;
 
-class AdminTicketController extends Controller
+class AdminTicketController_old extends Controller
 {
     /**
      * Create a new controller instance.

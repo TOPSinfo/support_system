@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class AdminLoginController extends Controller
+class AdminLoginController_old extends Controller
 {
     /*
     |--------------------------------------------------------------------------

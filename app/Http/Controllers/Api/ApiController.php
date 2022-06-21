@@ -65,16 +65,16 @@ class ApiController extends Controller
             ]);
         }
         if ($request->type == 'daily') {
-            $completed = Ticket::where('status','3')->whereBetween('created_at', [$request->type_value.' 00:00:01', $request->type_value.' 23:59:59'])->get();
-            $rejected = Ticket::where('status','4')->whereBetween('created_at', [$request->type_value.' 00:00:01', $request->type_value.' 23:59:59'])->get();
+            $completed = Ticket::select('id','salted_hash_id','title','description','created_at')->where('status','3')->whereBetween('created_at', [$request->type_value.' 00:00:01', $request->type_value.' 23:59:59'])->get();
+            $rejected = Ticket::select('id','salted_hash_id','title','description','created_at')->where('status','4')->whereBetween('created_at', [$request->type_value.' 00:00:01', $request->type_value.' 23:59:59'])->get();
             if (!empty($completed->count()) || !empty($rejected->count())) {
                 $success_per = ($completed->count() / ($completed->count() + $rejected->count() )) * 100;
             } else {
                 $success_per = 0;
             }
         } elseif ($request->type == 'monthly') {
-            $completed = Ticket::where('status','3')->whereBetween('created_at', [date('Y-m-d', strtotime($request->year.'-'.$request->type_value.'-01')).' 00:00:01', date('Y-m-t', strtotime($request->year.'-'.$request->type_value)).' 23:59:59'])->get();
-            $rejected = Ticket::where('status','4')->whereBetween('created_at', [date('Y-m-d', strtotime($request->year.'-'.$request->type_value.'-01')).' 00:00:01', date('Y-m-t', strtotime($request->year.'-'.$request->type_value)).' 23:59:59'])->get();
+            $completed = Ticket::select('id','salted_hash_id','title','description','created_at')->where('status','3')->whereBetween('created_at', [date('Y-m-d', strtotime($request->year.'-'.$request->type_value.'-01')).' 00:00:01', date('Y-m-t', strtotime($request->year.'-'.$request->type_value)).' 23:59:59'])->get();
+            $rejected = Ticket::select('id','salted_hash_id','title','description','created_at')->where('status','4')->whereBetween('created_at', [date('Y-m-d', strtotime($request->year.'-'.$request->type_value.'-01')).' 00:00:01', date('Y-m-t', strtotime($request->year.'-'.$request->type_value)).' 23:59:59'])->get();
             if (!empty($completed->count()) || !empty($rejected->count())) {
                 $success_per = ($completed->count() / ($completed->count() + $rejected->count() )) * 100;
             } else {

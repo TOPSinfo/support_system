@@ -23,7 +23,8 @@ class TicketSeeder extends Seeder
                 'status' => rand(1,4),
                 'created_by' => rand(1,4),
                 'lastmodified_by_type' => rand(1,2),
-                'lastmodified_by' => rand(1,4)
+                'lastmodified_by' => rand(1,4),
+                'created_at' => now(),
             );
         }
         DB::table('tickets')->insert($data);

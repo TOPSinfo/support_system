@@ -23,8 +23,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
         );
         $data[] = array(
-            'name' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
+            'name' => 'Test',
+            'email' => 'testvijahat@gmail.com',
             'password' => Hash::make('password'),
         );
         $data[] = array(

@@ -91,9 +91,14 @@
                     cache: false,
                     timeout: 800000,
                     success: function (data) {
-                        console.log("SUCCESS : ", data);
-                        location.reload();
-                        $("#commentPost").prop("disabled", false);
+                        if (data.success == '1') {
+                            location.reload();
+                            console.log("SUCCESS : ", data);
+                            $("#commentPost").prop("disabled", false);
+                        } else {
+                            alert("Please add comment message or attachment.");
+                            $("#commentPost").prop("disabled", false);
+                        }
                     },
                     error: function (e) {
                         console.log("ERROR : ", e);

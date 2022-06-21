@@ -82,6 +82,8 @@ class ApiController extends Controller
             }
         }
 
+        $success_per = round($success_per,2);
+
         $response[] = array(
             'completed_count' => $completed->count(),
             'rejected_count' => $rejected->count(),

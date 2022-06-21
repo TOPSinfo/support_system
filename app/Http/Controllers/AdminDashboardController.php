@@ -23,6 +23,7 @@ class AdminDashboardController extends Controller
         } else {
             $success_per = 0;
         }
+        $success_per = round($success_per,2);
         return view('admin.dashboard', compact('completed','rejected','pending','success_per'));
     }
 }

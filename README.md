@@ -5,6 +5,11 @@
 $ git clone https://git.topsdemo.in/root/support-system.git
 ```
 
+* Move to the project folder
+```
+$ cd support-system
+```
+
 Step by Step
 
 * Install Laravel packages

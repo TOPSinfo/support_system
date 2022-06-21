@@ -74,7 +74,7 @@
                         <tbody>
                             @foreach($activity as $activit)
                                 <tr>
-                                    <th scope="row">{{$sn++}}</th>
+                                    <th scope="row">{{$an++}}</th>
                                     <td>
                                         @if($activit->activity_type == '1')
                                             You create ticket <a href="{{ route('ticket.view',['id' => $activit->ticket->salted_hash_id]) }}">{{$activit->ticket->title}}</a>.

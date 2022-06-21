@@ -7,7 +7,9 @@ use App\Http\Requests\SaveTicketRequest;
 use App\Models\Ticket;
 use App\Models\Activity;
 use App\Models\Comment;
+use App\Models\User;
 use Auth;
+use App\Jobs\SendEmailJob;
 
 class TicketController extends Controller
 {
@@ -48,6 +50,16 @@ class TicketController extends Controller
                 'lastmodified_by' => Auth::guard('web')->user()->id,
         );
         Activity::create($activity);
+
+        $admin_users = User::where('is_admin','1')->get();
+        $details = array();
+        foreach ($admin_users as $key => $user) {
+            $details['email'] = $user->email;
+        }
+        if (!empty($details)) {
+            dispatch(new SendEmailJob($details));
+        }
+
         return redirect()->route('ticket.list')->with('success', 'Ticket added successfully.');
     }
 
@@ -134,8 +146,9 @@ class TicketController extends Controller
     public function listTicket(Request $request)
     {
         $sn = 1;
+        $an = 1;
         $tickets = Ticket::where('created_by',Auth::guard('web')->user()->id)->orderBy('created_at','desc')->get();
         $activity = Activity::where('created_by',Auth::guard('web')->user()->id)->skip(0)->take(5)->orderBy('created_at','desc')->get();
-        return view("ticket.list", compact('tickets','sn','activity'));
+        return view("ticket.list", compact('tickets','sn','activity','an'));
     }
 }

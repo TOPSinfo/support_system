@@ -30,7 +30,7 @@ $ php artisan optimize
 ```
 $ php artisan migrate
 ```
-* Add custom data on database
+* Add custom data in database
 ```
 $ php artisan db:seed
 ```

@@ -72,6 +72,7 @@
 @endsection
 
 @section('js')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
             $(document).on("click","#commentPost",function() {
@@ -91,6 +92,7 @@
                     timeout: 800000,
                     success: function (data) {
                         console.log("SUCCESS : ", data);
+                        location.reload();
                         $("#commentPost").prop("disabled", false);
                     },
                     error: function (e) {

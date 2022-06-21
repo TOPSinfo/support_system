@@ -57,6 +57,32 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Recent activity
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Activity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($activity as $activit)
+                                <tr>
+                                    <th scope="row">{{$sn++}}</th>
+                                    <td>{{$activit->message}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

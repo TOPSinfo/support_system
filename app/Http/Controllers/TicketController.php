@@ -66,7 +66,8 @@ class TicketController extends Controller
                 'lastmodified_by' => Auth::guard('web')->user()->id,
         );
 
-        $ticket = Ticket::where('salted_hash_id',$request->id)->update($data);
+        Ticket::where('salted_hash_id',$request->id)->update($data);
+        $ticket = Ticket::where('salted_hash_id',$request->id)->first();
         $activity = array(
                 'salted_hash_id' => hashSalt('activities'),
                 'ticket_id' => $ticket->id,
@@ -132,6 +133,7 @@ class TicketController extends Controller
     {
         $sn = 1;
         $tickets = Ticket::where('created_by',Auth::guard('web')->user()->id)->orderBy('created_at','desc')->get();
-        return view("ticket.list", compact('tickets','sn'));
+        $activity = Activity::where('created_by',Auth::guard('web')->user()->id)->skip(0)->take(5)->orderBy('created_at','desc')->get();
+        return view("ticket.list", compact('tickets','sn','activity'));
     }
 }

@@ -72,6 +72,7 @@
                                 </div>
                             </div>
                         </form>
+                        <a href="{{ route('admin.ticketList') }}" class="btn btn-danger mb-2" role="button" aria-pressed="true">Close</a>
                     </div>
                 </div>
                 <!-- /.card-body -->
@@ -104,6 +105,7 @@
                     cache: false,
                     timeout: 800000,
                     success: function (data) {
+                        location.reload();
                         console.log("SUCCESS : ", data);
                         $("#commentPost").prop("disabled", false);
                     },

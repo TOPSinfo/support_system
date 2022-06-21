@@ -58,6 +58,9 @@ class AdminLoginController extends Controller
             if (auth()->user()->is_admin == 1) {
                 return redirect()->route('admin.dashboard');
             }else{
+                auth()->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
                 return redirect()->route('admin.login')->with('error','Email-Address And Password Are Wrong.');
             }
         }else{

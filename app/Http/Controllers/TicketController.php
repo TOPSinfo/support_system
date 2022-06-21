@@ -68,15 +68,6 @@ class TicketController extends Controller
 
         Ticket::where('salted_hash_id',$request->id)->update($data);
         $ticket = Ticket::where('salted_hash_id',$request->id)->first();
-        $activity = array(
-                'salted_hash_id' => hashSalt('activities'),
-                'ticket_id' => $ticket->id,
-                'activity_type' => '1',
-                'created_by' => Auth::guard('web')->user()->id,
-                'lastmodified_by_type' => '1',
-                'lastmodified_by' => Auth::guard('web')->user()->id,
-        );
-        Activity::create($activity);
         return redirect()->route('ticket.list')->with('success', 'Ticket updated successfully.');
     }
 
@@ -117,6 +108,17 @@ class TicketController extends Controller
             );
 
             Comment::create($arr);
+
+            $ticket = Ticket::where('id',$request->ticket_id)->first();
+            $activity = array(
+                'salted_hash_id' => hashSalt('activities'),
+                'ticket_id' => $ticket->id,
+                'activity_type' => '2',
+                'created_by' => Auth::guard('web')->user()->id,
+                'lastmodified_by_type' => '1',
+                'lastmodified_by' => Auth::guard('web')->user()->id,
+            );
+            Activity::create($activity);
 
             // Response
             $data['success'] = 1;

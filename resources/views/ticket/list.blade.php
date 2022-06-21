@@ -75,7 +75,13 @@
                             @foreach($activity as $activit)
                                 <tr>
                                     <th scope="row">{{$sn++}}</th>
-                                    <td>{{$activit->message}}</td>
+                                    <td>
+                                        @if($activit->activity_type == '1')
+                                            You create ticket <a href="{{ route('ticket.view',['id' => $activit->ticket->salted_hash_id]) }}">{{$activit->ticket->title}}</a>.
+                                        @elseif($activit->activity_type == '2')
+                                            You comment on ticket <a href="{{ route('ticket.view',['id' => $activit->ticket->salted_hash_id]) }}">{{$activit->ticket->title}}</a>.
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

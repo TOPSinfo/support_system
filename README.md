@@ -2,12 +2,12 @@
 
 * Git clone
 ```
-$ git clone https://git.topsdemo.in/root/support-system.git
+$ git clone <repo-url>
 ```
 
 * Move to the project folder
 ```
-$ cd support-system
+$ cd <project folder>
 ```
 
 Step by Step

@@ -17,7 +17,7 @@ Step by Step
 $ composer install
 ```
 
-* Duplicate .env.example and rename duplicated file to .env and change credentials for DB
+* Duplicate .env.example and rename duplicated file to .env and change credentials for DB and change queue connection to database just like "QUEUE_CONNECTION=database"
 
 * Generate Application Key
 ```

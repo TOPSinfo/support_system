@@ -1,7 +1,3 @@
-#### Documentations
-
-* [Laravel 8.x](https://laravel.com/docs/8.x/installation)
----
 #### Installation
 
 * Git clone
@@ -16,7 +12,7 @@ Step by Step
 $ composer install
 ```
 
-* Duplicate .env.example and rename duplicated file to .env and change credentials for DB and set your application domain "SANCTUM_STATEFUL_DOMAINS"
+* Duplicate .env.example and rename duplicated file to .env and change credentials for DB
 
 * Generate Application Key
 ```

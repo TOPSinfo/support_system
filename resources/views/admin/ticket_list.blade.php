@@ -1,31 +1,40 @@
-@extends('layouts.front')
+@extends('adminlte::page')
+
+@section('title', 'Ticket list')
+
+@section('content_header')
+    <h1>Ticket list</h1>
+@stop
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row">
+        <div class="col-12">
             <div class="card">
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
                 <div class="card-header">
-                    Tickets
-                    <a href="{{ route('ticket.add') }}" class="btn btn-primary float-right" role="button" aria-pressed="true">Add</a>
-                </div>
+                    <h3 class="card-title">Responsive Hover Table</h3>
 
-                <div class="card-body">
-                    <table class="table table-striped">
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Created by</th>
-                                <th scope="col">Created at</th>
-                                <th scope="col">Action</th>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Created by</th>
+                                <th>Created at</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,17 +55,23 @@
                                     </td>
                                     <td>{{$ticket->user->name}}</td>
                                     <td>{{$ticket->created_at}}</td>
-                                    <td>
-                                        <a href="{{ route('ticket.view',['id' => $ticket->salted_hash_id]) }}"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ route('ticket.edit',['id' => $ticket->salted_hash_id]) }}"><i class="fas fa-edit"></i></a>
-                                    </td>
+                                    <td><a href="{{ route('admin.ticketDetail',['id' => $ticket->salted_hash_id]) }}"><i class="fas fa-eye"></i></a></td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+                <!-- /.card-body -->
             </div>
+            <!-- /.card -->
         </div>
     </div>
-</div>
-@endsection
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop

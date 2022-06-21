@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SaveTicketRequest;
 use App\Models\Ticket;
 use App\Models\Activity;
+use App\Models\Comment;
 use Auth;
 
 class TicketController extends Controller
@@ -78,16 +79,59 @@ class TicketController extends Controller
         return redirect()->route('ticket.list')->with('success', 'Ticket updated successfully.');
     }
 
-    public function viewTicket(SaveTicketRequest $request)
+    public function viewTicket(Request $request, $id)
     {
-        $tickets = Ticket::where('salted_hash_id',$request->id)->first();
-        return view("ticket.view", compact('tickets'));
+        $ticket = Ticket::where('salted_hash_id',$id)->first();
+        return view("ticket.detail", compact('ticket'));
+    }
+
+    public function ticketComment(Request $request)
+    {
+        if($request->file('attachment')) {
+            $file = $request->file('attachment');
+            $filename = time().'_'.$file->getClientOriginalName();
+
+            // File extension
+            $extension = $file->getClientOriginalExtension();
+
+            // File upload location
+            $location = 'files';
+
+            // Upload file
+            $file->move($location,$filename);
+
+            // File path
+            $filepath = url('files/'.$filename);
+        } else {
+            $filename = null;
+        }
+
+        if (!empty($request->comment) || !empty($filename)) {
+            $arr = array(
+                'salted_hash_id' => hashSalt('comments'),
+                'ticket_id' => $request->ticket_id,
+                'message' => $request->comment,
+                'image_name' => $filename,
+                'created_by' => Auth::guard('web')->user()->id,
+            );
+
+            Comment::create($arr);
+
+            // Response
+            $data['success'] = 1;
+            $data['message'] = 'Updated Successfully!';
+        } else {
+            $data['success'] = 0;
+            $data['message'] = 'Not Updated';
+        }
+
+        return response()->json($data);
     }
 
     public function listTicket(Request $request)
     {
         $sn = 1;
-        $tickets = Ticket::orderBy('created_at','desc')->get();
+        $tickets = Ticket::where('created_by',Auth::guard('web')->user()->id)->orderBy('created_at','desc')->get();
         return view("ticket.list", compact('tickets','sn'));
     }
 }

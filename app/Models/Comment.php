@@ -26,11 +26,7 @@ class Comment extends Model
         'salted_hash_id',
         'ticket_id',
         'message',
-        'image_1',
-        'image_2',
-        'image_3',
-        'image_4',
-        'image_5',
+        'image_name',
         'created_by'
     ];
 

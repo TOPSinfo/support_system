@@ -12,7 +12,7 @@
                         @csrf
                         <input type="hidden" name="id" value="{{ $tickets->salted_hash_id }}">
                         <div class="form-group">
-                            <label for="title">Title</label>
+                            <label for="title">Title<span style="color:red;">*</span></label>
                             <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" value="{{$tickets->title}}" required>
                         </div>
                         <div class="form-group">

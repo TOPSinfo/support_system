@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ticket;
+use App\Models\Comment;
+use Auth;
 
-class adminTicketController extends Controller
+class AdminTicketController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -13,6 +16,71 @@ class adminTicketController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:staffs');
+        $this->middleware('is_admin');
+    }
+
+    public function ticketList(Request $request)
+    {
+        $sn = 1;
+        $tickets = Ticket::orderBy('created_at','desc')->get();
+        return view('admin.ticket_list',compact('tickets','sn'));
+    }
+
+    public function ticketDetail(Request $request)
+    {
+        $ticket = Ticket::where('salted_hash_id',$request->id)->first();
+        return view('admin.ticket_detail',compact('ticket'));
+    }
+
+    public function ticketComment(Request $request)
+    {
+        if($request->file('attachment')) {
+            $file = $request->file('attachment');
+            $filename = time().'_'.$file->getClientOriginalName();
+
+            // File extension
+            $extension = $file->getClientOriginalExtension();
+
+            // File upload location
+            $location = 'files';
+
+            // Upload file
+            $file->move($location,$filename);
+
+            // File path
+            $filepath = url('files/'.$filename);
+        } else {
+            $filename = null;
+        }
+
+        if (!empty($request->comment) || !empty($filename)) {
+            $arr = array(
+                'salted_hash_id' => hashSalt('comments'),
+                'ticket_id' => $request->ticket_id,
+                'message' => $request->comment,
+                'image_name' => $filename,
+                'created_by' => Auth::guard('web')->user()->id,
+            );
+
+            Comment::create($arr);
+
+            // Response
+            $data['success'] = 1;
+            $data['message'] = 'Updated Successfully!';
+        } else {
+            $data['success'] = 0;
+            $data['message'] = 'Not Updated';
+        }
+
+        return response()->json($data);
+    }
+
+    public function ticketStatusUpdate(Request $request)
+    {
+        $tickets = Ticket::where('salted_hash_id',$request->ticket)->update(['status' => $request->status]);
+        $data['success'] = 1;
+        $data['message'] = 'Updated Successfully!';
+
+        return response()->json($data);
     }
 }

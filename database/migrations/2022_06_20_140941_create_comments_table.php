@@ -17,12 +17,8 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->string("salted_hash_id");
             $table->bigInteger("ticket_id");
-            $table->text("message");
-            $table->string("image_1");
-            $table->string("image_2");
-            $table->string("image_3");
-            $table->string("image_4");
-            $table->string("image_5");
+            $table->text("message")->nullable();
+            $table->string("image_name")->nullable();
             $table->bigInteger("created_by");
             $table->timestamps();
         });

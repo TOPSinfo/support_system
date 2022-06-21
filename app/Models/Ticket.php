@@ -35,4 +35,10 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    // Get the comments for the ticket.
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
 }

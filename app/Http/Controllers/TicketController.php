@@ -65,7 +65,16 @@ class TicketController extends Controller
                 'lastmodified_by' => Auth::guard('web')->user()->id,
         );
 
-        Ticket::where('salted_hash_id',$request->id)->update($data);
+        $ticket = Ticket::where('salted_hash_id',$request->id)->update($data);
+        $activity = array(
+                'salted_hash_id' => hashSalt('activities'),
+                'ticket_id' => $ticket->id,
+                'activity_type' => '1',
+                'created_by' => Auth::guard('web')->user()->id,
+                'lastmodified_by_type' => '1',
+                'lastmodified_by' => Auth::guard('web')->user()->id,
+        );
+        Activity::create($activity);
         return redirect()->route('ticket.list')->with('success', 'Ticket updated successfully.');
     }
 

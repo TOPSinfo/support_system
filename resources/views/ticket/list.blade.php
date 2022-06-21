@@ -77,7 +77,7 @@
                                     <th scope="row">{{$an++}}</th>
                                     <td>
                                         @if($activit->activity_type == '1')
-                                            You create ticket <a href="{{ route('ticket.view',['id' => $activit->ticket->salted_hash_id]) }}">{{$activit->ticket->title}}</a>.
+                                            You created ticket <a href="{{ route('ticket.view',['id' => $activit->ticket->salted_hash_id]) }}">{{$activit->ticket->title}}</a>.
                                         @elseif($activit->activity_type == '2')
                                             You comment on ticket <a href="{{ route('ticket.view',['id' => $activit->ticket->salted_hash_id]) }}">{{$activit->ticket->title}}</a>.
                                         @endif

@@ -25,21 +25,25 @@ class UserSeeder extends Seeder
         $data[] = array(
             'name' => 'Test',
             'email' => 'testvijahat@gmail.com',
+            'is_admin' => '0',
             'password' => Hash::make('password'),
         );
         $data[] = array(
             'name' => Str::random(10),
             'email' => Str::random(10).'@gmail.com',
+            'is_admin' => '0',
             'password' => Hash::make('password'),
         );
         $data[] = array(
             'name' => Str::random(10),
             'email' => Str::random(10).'@gmail.com',
+            'is_admin' => '0',
             'password' => Hash::make('password'),
         );
         $data[] = array(
             'name' => Str::random(10),
             'email' => Str::random(10).'@gmail.com',
+            'is_admin' => '0',
             'password' => Hash::make('password'),
         );
         DB::table('users')->insert($data);
